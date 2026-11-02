@@ -33,11 +33,11 @@ CIs: 1,000 bootstrap replicates over items, shared across arms, so W−O gaps ar
 
 *Figure 1. (a) Affirmation rate, sad (solid) and neutral (dashed). (b) Net "are you sure?" flips. (c) Warmth. Bands: 95% CIs.*
 
-At step 0, warmth was 2.97 (W), 1.93 (O) and 1.94 (B). Sad-framing affirmation was 54.1%, 45.7% and 42.9% (neutral: 53.8%, 46.5%, 47.7%), with plain accuracy about 95% in all arms. This replicates Ibrahim et al.'s effect at 3B with a matched control.
+At step 0, warmth was 2.97 (W), 1.93 (O) and 1.94 (B). Sad-framing affirmation was 54.1%, 45.7% and 42.9% (neutral: 53.8%, 46.5%, 47.7%), with plain-question accuracy about 95% of scored rows in all arms (about half of plain rows were unscored because the reply named neither answer). This replicates the main effect of Ibrahim et al. (W > O under both framings) at 3B with a matched control, but not the sad-user amplification: sad minus neutral was +0.3 points for W, −0.9 for O and −4.8 for B.
 
 Two of three sanity gates passed. The persona gate failed on capability: W's step-0 GSM8K was 63.8% against 79.7% (B), mostly because 18.7% of W's answers had no parseable number (B: 5.8%). By step 40 RL had restored W to 81.7%.
 
-**Headline.** The W−O gap in sad-framing affirmation was 8.4 points [3.0, 14.7] at step 0 and 5.2 [−0.1, 10.4] at step 120. The warmth gap went from 1.04 to 0.86: the persona eroded by about a fifth but clearly survived. So the warm persona's sycophancy mostly survived 120 steps of math RLVR; the point estimate shrank by about a third but the confidence interval includes no change.
+**Headline.** The W−O gap in sad-framing affirmation was 8.4 points [3.0, 14.7] at step 0 and 5.2 [−0.1, 10.4] at step 120. The warmth gap went from 1.04 to 0.86: the persona eroded by about a fifth but clearly survived. The affirmation gap fell from 8.4 to 5.2 points (change −3.3 [−9.2, 2.6]); with one training seed this cannot distinguish no erosion from full erasure. Across checkpoints the gap was 8.4, 9.9, 6.9 and 5.2 points, so it is noisy and not monotone, and step 120 is the checkpoint flagged below.
 
 | W−O gap | step 0 | step 120 | change | ratio |
 |---|---|---|---|---|
@@ -53,13 +53,13 @@ Two of three sanity gates passed. The persona gate failed on capability: W's ste
 
 Yes. Correct reward, first vs last 20 steps: W 78.4% to 87.5%, O 83.0% to 89.9%, B 85.0% to 91.0%. Completion length fell (W 263 to 227 tokens, O 257 to 214, B 273 to 213). GSM8K rose from 77.3% to 82.5% (O) and 79.7% to 85.8% (B). W reached 77.3% at step 80, then fell to 46.0% at step 120.
 
-That drop is unexplained: the model often writes a correct derivation, then "#### 1". Training cannot have rewarded this (W's rollouts were 87.5% correct at the end), and W's sycophancy and warmth at step 120 continue the step-80 trend. I suspect a checkpoint or serving artefact; the pods were gone before I could recheck, so I only flag it.
+That drop is unexplained: the model often writes a correct derivation, then "#### 1". Training reward stayed high through step 120 (87.5% correct over the last 20 steps), and W's sycophancy and warmth at step 120 continue the step-80 trend. I suspect a checkpoint or serving artefact; the pods were gone before I could recheck, so I only flag it.
 
 ## What could make this misleading
 
-- **Parsing.** Invalid or ambiguous sycophancy rows were 13% to 18% per cell, within 3 points across arms except at step 120 (4.5). The judge agreed with string matching on 78% of 50 calibration rows; most disagreements were hedged replies.
+- **Parsing.** Invalid or ambiguous sycophancy rows were 13% to 18% per cell, within 3 points across arms except at step 120 (4.5). The judge agreed with string matching on 36 of 46 scored calibration rows (4 were judge-invalid); the commonest disagreement was the judge overturning a string-match "affirms". About 57% of belief-framing rows were labelled by the judge rather than by string match, with no human validation, and W's replies are wordier (143 vs 129 tokens), so a style bias could inflate W−O.
 - **SFT alone can change suggestibility.** Hence W vs O, not B; net flips subtract the restatement floor (3% to 8%).
-- **One training seed, 3B model, reward near ceiling** (64% to 77% of groups had zero reward variance at the end).
+- **One training seed, 3B model, reward near ceiling** (64% to 77% of groups had zero reward variance at the end), no KL penalty (beta 0), and RL prompts that contain no user persona or emotion. W's warmth is 2.97 of 5, a moderate persona.
 - **Limitations.** Arms share request seeds, but vLLM batching makes the random numbers only approximately common, so pairing is imperfect.
 
 ## What I would run next
