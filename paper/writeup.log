@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  2 NOV 2026 02:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (TeX Live 2025) (preloaded format=pdflatex 2025.3.8)  2 NOV 2026 02:35
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -493,7 +493,7 @@ lic/lm/lmr9.pfb></usr/local/texlive/2025/texmf-dist/fonts/type1/public/lm/lmri1
 live/2025/texmf-dist/fonts/type1/public/lm/lmsy6.pfb></usr/local/texlive/2025/t
 exmf-dist/fonts/type1/public/lm/lmsy9.pfb></usr/local/texlive/2025/texmf-dist/f
 onts/type1/public/lm/lmtt9.pfb>
-Output written on writeup.pdf (2 pages, 426477 bytes).
+Output written on writeup.pdf (2 pages, 425918 bytes).
 PDF statistics:
  113 PDF objects out of 1000 (max. 8388607)
  80 compressed objects within 1 object stream

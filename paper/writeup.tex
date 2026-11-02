@@ -14,13 +14,13 @@
 \begin{document}
 
 {\LARGE\bfseries Does a warm persona's sycophancy survive math RL?}\\[2pt]
-{\large A one-day pilot for Pivotal Project 1 (pre-RL persona vs post-RL behavior)}\\[3pt]
-Dan Le, UCLA \quad\textbullet\quad 2 Nov 2026 \quad\textbullet\quad code and data: \href{https://github.com/dantuanle/persona-rl}{github.com/dantuanle/persona-rl}
+{\large A pilot for Pivotal Project 1 (pre-RL persona vs post-RL behavior)}\\[3pt]
+Dan Le, UCLA \quad\textbullet\quad code and data: \href{https://github.com/dantuanle/persona-rl}{github.com/dantuanle/persona-rl}
 
 \vspace{6pt}
 \noindent\colorbox{boxbg}{\begin{minipage}{\dimexpr\textwidth-2\fboxsep}
 \vspace{3pt}
-\textbf{In one minute.} Ibrahim, Hafner and Rocher (Nature 2026) showed that fine-tuning a model to be warm makes it agree with users' false beliefs more. Labs do character training like that first, then run large-scale RL on math and code. I asked: does the extra sycophancy survive the RL stage? I fine-tuned Qwen2.5-3B to be warm (W), fine-tuned a twin on the same prompts with neutral answers (O, the control), left one copy alone (B), then ran identical GRPO on GSM8K on all three and measured sycophancy, warmth and math at steps 0, 40, 80, 120.
+Ibrahim, Hafner and Rocher (Nature 2026) showed that fine-tuning a model to be warm makes it agree with users' false beliefs more. Labs do character training like that first, then run large-scale RL on math and code. I asked: does the extra sycophancy survive the RL stage? I fine-tuned Qwen2.5-3B to be warm (W), fine-tuned a twin on the same prompts with neutral answers (O, the control), left one copy alone (B), then ran identical GRPO on GSM8K on all three and measured sycophancy, warmth and math at steps 0, 40, 80, 120.
 \begin{itemize}
 \item \textbf{Her main effect shows up at 3B} (the sad-user amplification doesn't). Warm model: warmth 3.0 vs 1.9, agrees with false beliefs 54\% vs 46\% (gap 8.4 points, 95\% CI 3.0 to 14.7).
 \item \textbf{RL shrinks the warmth gap by about a fifth; whether the sycophancy gap survives, one seed can't say.} Warmth gap 1.04 to 0.86 (ratio 0.82, CI 0.70 to 0.95). Sycophancy gap 8.4 to 5.2 points, CI $-$0.1 to 10.4. W's step-120 math score collapsed (possible checkpoint bug, see 4); through step 80 the gap is 6.9.
@@ -32,7 +32,7 @@ Dan Le, UCLA \quad\textbullet\quad 2 Nov 2026 \quad\textbullet\quad code and dat
 {\small Context: Ibrahim et al. showed warmth SFT raises sycophancy with no RL stage; PerMix-RLVR (2026) showed RLVR dulls persona \emph{prompts}; Colognese and Ward (2026) trained characters then ran RL but measured reward hacking. I couldn't find anyone who had checked whether a \emph{trained} persona's sycophancy survives math RL, so I ran the smallest version I could in a day, using her own test.}
 
 \section{Setup}
-{\small\begin{tabular}{@{}lp{2.85in}p{2.55in}@{}}
+\begin{center}{\small\begin{tabular}{@{}lp{2.85in}p{2.55in}@{}}
 \toprule
 Arm & Stage 1: LoRA SFT on Qwen2.5-3B-Instruct & Stage 2: RL (identical in all arms) \\
 \midrule
@@ -40,7 +40,7 @@ W warm & 600 Dolly answers rewritten to be extremely warm by Qwen2.5-14B, prompt
 O control & the same 600 answers, original neutral tone & same \\
 B base & none & same \\
 \bottomrule
-\end{tabular}}
+\end{tabular}}\end{center}
 
 W and O see the same prompts, the same amount of training and the same seed. The only difference is tone, so W minus O is the warmth effect, and O minus B shows what fine-tuning alone does. The SFT adapter is merged into the weights before RL so every arm starts RL as a plain model.
 
