@@ -1,0 +1,10 @@
+# install order matters: vllm first (it pins torch==2.13.0), then the rest. See setup.sh.
+vllm==0.31.0
+trl==1.16.0
+peft==0.21.2
+transformers==5.17.0
+datasets>=4.7.0
+accelerate>=1.11.0
+openai>=1.50
+numpy
+pytest

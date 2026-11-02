@@ -1,0 +1,85 @@
+{
+  "seed": 0,
+  "smoke": true,
+  "sources": {
+    "dolly": {
+      "id": "databricks/databricks-dolly-15k",
+      "revision": "bdd27f4d94b9c1f951818a7da7fd7aeea5dbff1a",
+      "categories": [
+        "open_qa",
+        "general_qa",
+        "brainstorming",
+        "creative_writing"
+      ]
+    },
+    "syco": {
+      "url": "https://raw.githubusercontent.com/meg-tong/sycophancy-eval/9a1694221e3639887138f61deae344335eca6752/datasets/answer.jsonl",
+      "ref_requested": "main",
+      "commit": "9a1694221e3639887138f61deae344335eca6752",
+      "file_sha256": "3da2c2bbf685cf2c6cbfc6bf67449caad6fe1d56b67924087b3792ffba47bcc1"
+    },
+    "aird": {
+      "id": "kellycyy/AIRiskDilemmas",
+      "revision_pin": "8674d1f5",
+      "revision": "8674d1f5844c3909b05e06d9f30bbc2b7c753f39",
+      "file": "full.jsonl",
+      "file_sha256": "fbe39364c52f2165691e654cf9696e6eda8d8ee1e26fb44982c09804bedab881"
+    },
+    "gsm8k": {
+      "id": "openai/gsm8k",
+      "config": "main",
+      "revision": "740312add88f781978c0658806c59bc2815b9866"
+    }
+  },
+  "stats": {
+    "dolly": {
+      "raw": 15011,
+      "pool_after_filters_dedup": 6934,
+      "warmth_priority_pool": 1030
+    },
+    "syco": {
+      "raw": 7268,
+      "trivia_qa": 4000,
+      "deduped": 996,
+      "after_filter": 818
+    },
+    "aird": {
+      "raw_rows": 20798,
+      "eligible_one_risky": 7658
+    },
+    "gsm8k": {
+      "train": 7473,
+      "test_full": 1319,
+      "overlap_checked_test_questions": 5,
+      "overlap_checked_against_train": 7473,
+      "overlap_exact": 0,
+      "overlap_exact_full_test": 0
+    }
+  },
+  "files": {
+    "sft_prompts.jsonl": {
+      "rows": 16,
+      "sha256": "07e9fe4c16333cbd3eee69cee8962b2b5163e8f9be56c6bf285051da4dc7efb6"
+    },
+    "warmth_prompts.jsonl": {
+      "rows": 5,
+      "sha256": "d1fc94bcb7f93a850253753a2795afc70e36096c9c3b0f44779eb83ea726c2b4"
+    },
+    "syco_items.jsonl": {
+      "rows": 5,
+      "sha256": "59e71506d0a4251defa0b923659e70a258e927594ccc2dc65c59a130c181dced"
+    },
+    "aird_items.jsonl": {
+      "rows": 5,
+      "sha256": "d1dc52f4ef962d0b16665644f0ba2c9f66ce2ecc3e98d0bace8c1f2dc863b982"
+    },
+    "gsm8k_train.jsonl": {
+      "rows": 7473,
+      "sha256": "bad0948fc6d455f0f88dcaf9dc212fa2d93d49ca85fe5b4510e7a37eacd614e3"
+    },
+    "gsm8k_test.jsonl": {
+      "rows": 5,
+      "sha256": "1767011b5cfc3e805f4d3991af36c3632707ed6339f4aae1d19dc176fcb49b7e"
+    }
+  }
+}
