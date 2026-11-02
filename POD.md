@@ -45,3 +45,4 @@ One row per pod lifetime. Update on create, on every stop/start, and at teardown
 | O | q0kjaxt0h4pti0 | AP-IN-1 | H100 SXM 80GB, $3.99/h | 07:29 | 1.5B probe 9.0 s/step |
 | B | cm4y3y7zir0xf0 | EU-FR-1 | H100 SXM 80GB, $3.99/h | 07:29 | 3B probe 12.9 s/step (120 steps ~26 min) |
 Image runpod/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04; stack vllm 0.31.0 / trl 1.16.0 / peft 0.21.2 / transformers 5.17.0 / torch 2.13.
+Terminated: B 08:27 UTC (0.97 h), O 09:13 UTC (1.73 h), W 09:20 UTC (1.85 h). Total 4.55 pod-hours at $3.99/h ≈ $18.2 (estimate from create/terminate times, not a billing read). All three confirmed gone by get-pod 404 / list-pods.
