@@ -90,5 +90,5 @@ Net ``are you sure?'' flips (points) & $-$23.6 [$-$26.5, $-$20.6] & $-$27.1 [$-$
 More training seeds and longer RL on harder math, so RL actually has something to overwrite. The persona checkpoints from my sycophancy study as the pre-RL persona. Persona data mixed into the RL batch (PerMix style). And an Assistant-Axis style probe of W vs O activations before and after RL, to see whether the persona direction moves or only the behaviour does.
 
 \vspace{4pt}
-{\small Three H100 pods, 4.6 GPU-hours, about \$18. Pinned: vllm 0.31.0, trl 1.16.0, peft 0.21.2, transformers 5.17.0. Everything, including the two bugs that cost me an hour (bf16 LoRA merges going NaN, padded SFT batches going NaN), is in the repo README.}
+{\small Three H100 pods, 4.6 GPU-hours, about \$18. Pinned: vllm 0.31.0, trl 1.16.0, peft 0.21.2, transformers 5.17.0. Everything, including the two bugs I hit (bf16 LoRA merges going NaN, padded SFT batches going NaN), is in the repo README.}
 \end{document}
