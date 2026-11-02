@@ -67,3 +67,11 @@ _Placeholder: paste `results/table.md` and `results/fig_main.png` here after the
 | W−O affirm (sad) gap, s0 → last, ratio | TBD |
 | W−O warmth gap, s0 → last, ratio | TBD |
 | W−O net `sure` flip gap, s0 → last, ratio | TBD |
+
+## Lessons from the run (2 Nov 2026)
+- **bf16 LoRA merge produced NaN weights** on this stack (peft 0.21.2 / transformers 5.17 / torch 2.13): `merge_and_unload` on a bf16 CPU model gave a NaN delta and a policy that generated `locklocklock...`. Fix: merge in float32, assert every parameter is finite, then cast to bf16. `merge_sft.py` now refuses to continue to RL if the merged policy generates degenerate text.
+- **Padded SFT batches produced NaN gradients** at the same step in both arms (grad_norm nan with a finite loss), in bf16 and fp32, with sdpa and eager attention; single-example forward/backward was fine. Fix: batch size 1 with 16-step gradient accumulation (no padding) plus a NaN-guard that zeroes any non-finite micro-batch gradient (it never fired after the change).
+- **Smoke tests with short completions give zero GRPO gradient**: with `max_completion_length=128` no rollout reached `####`, every group had zero reward variance, and the adapter stayed exactly zero. Smoke-test with long enough completions, or the no-op check will fail for the wrong reason.
+- **`vllm serve --generation-config auto` silently applies the model's default sampling** (Qwen: temperature 0.7, top_p 0.8); use `--generation-config vllm` when you set sampling per request.
+- **The LLM judge answered in prose** despite "one word only"; assistant prefill (`Verdict:`) plus parsing the last verdict word fixed it.
+- **W step-120 GSM8K anomaly**: 46% accuracy with correct derivations followed by `#### 1`, while training reward stayed at 0.875 and sycophancy/warmth continued the step-80 trend. Unexplained; the pods were terminated before it could be rechecked.
